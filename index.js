@@ -1,6 +1,6 @@
 const { makeWASocket, useMultiFileAuthState } = require('@whiskeysockets/baileys')
 const { Boom } = require('@hapi/boom')
-const { handleGroupJoin } = require('./lib/groupHandler')
+const { handleGroupJoin } = require('./lib/groupActions/handleGroupJoin')
 
 async function startBot() {
   const { state, saveCreds } = await useMultiFileAuthState('auth')
