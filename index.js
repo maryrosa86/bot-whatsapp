@@ -1,6 +1,8 @@
 const { makeWASocket, useMultiFileAuthState } = require('@whiskeysockets/baileys')
 const { Boom } = require('@hapi/boom')
 const { handleGroupJoin } = require('./lib/groupActions/handleGroupJoin')
+const { handleUserExit } = require('./lib/groupActions/handleUserExit')
+
 
 async function startBot() {
   const { state, saveCreds } = await useMultiFileAuthState('auth')
@@ -20,10 +22,12 @@ async function startBot() {
   // Salva credenciais
   sock.ev.on('creds.update', saveCreds)
 
-  // Entrada de participantes → lógica modularizada
-  sock.ev.on('group-participants.update', (update) => {
-    handleGroupJoin(sock, update)
-  })
+ // Entrada e saída de participantes
+sock.ev.on('group-participants.update', (update) => {
+  handleGroupJoin(sock, update)
+ // handleUserExit(sock, update)
+})
+
 }
 
 startBot()
