@@ -25,7 +25,8 @@ async function startBot() {
  // Entrada e saída de participantes
 sock.ev.on('group-participants.update', (update) => {
   handleGroupJoin(sock, update)
- // handleUserExit(sock, update)
+
+  handleUserExit(sock, update)
 })
 
 }
