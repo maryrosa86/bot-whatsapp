@@ -22,11 +22,18 @@ async function startBot() {
   // Salva credenciais
   sock.ev.on('creds.update', saveCreds)
 
- // Entrada e saída de participantes
-sock.ev.on('group-participants.update', (update) => {
-  handleGroupJoin(sock, update)
+ //Entrada e saída de participantes
+// sock.ev.on('group-participants.update', (update) => {
+//   handleGroupJoin(sock, update)
 
-  handleUserExit(sock, update)
+  // handleUserExit(sock, update)
+// })
+sock.ev.on('group-participants.update', (update) => {
+  if (update.action === 'add') {
+    handleGroupJoin(sock, update)
+  } else if (update.action === 'remove') {
+    handleUserExit(sock, update)
+  }
 })
 
 }
